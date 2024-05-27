@@ -10,12 +10,19 @@ type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
   onAddTag: (tag: Tag) => void;
   availableTags: Tag[];
-};
+} & Partial<NoteData>;
 
-export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
+export function NoteForm({
+  onSubmit,
+  onAddTag,
+  availableTags,
+  title = "",
+  textarea = "",
+  tags = [],
+}: NoteFormProps) {
   const titleRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>(tags);
   const navigate = useNavigate();
 
   function handleSubmit(e: FormEvent) {
@@ -35,7 +42,11 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
       <Stack gap={4}>
         <Form.Group controlId="title">
           <Form.Label>Title</Form.Label>
-          <Form.Control ref={titleRef} required></Form.Control>
+          <Form.Control
+            ref={titleRef}
+            defaultValue={title}
+            required
+          ></Form.Control>
         </Form.Group>
         <Form.Group controlId="tags">
           <Form.Label>Tags</Form.Label>
@@ -63,7 +74,13 @@ export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
         </Form.Group>
         <Form.Group controlId="textarea">
           <Form.Label>Body</Form.Label>
-          <Form.Control ref={textareaRef} required as="textarea" rows={10} />
+          <Form.Control
+            defaultValue={textarea}
+            ref={textareaRef}
+            required
+            as="textarea"
+            rows={10}
+          />
         </Form.Group>
         <Stack
           direction="horizontal"
