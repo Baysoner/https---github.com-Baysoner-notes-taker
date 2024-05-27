@@ -1,10 +1,15 @@
 import { Badge, Col, Row, Stack } from "react-bootstrap";
 import { useNote } from "./NoteLayout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
-export function Note() {
+type NoteProps = {
+  onDelete: (id: string) => void;
+};
+
+export function Note({ onDelete }: NoteProps) {
   const note = useNote();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -28,7 +33,14 @@ export function Note() {
                 Edit
               </button>
             </Link>
-            <button type="submit" className="btn btn-outline-danger">
+            <button
+              onClick={() => {
+                onDelete(note.id);
+                navigate("/");
+              }}
+              type="submit"
+              className="btn btn-outline-danger"
+            >
               Delete
             </button>
             <Link to="/">

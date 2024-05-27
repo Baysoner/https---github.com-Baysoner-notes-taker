@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Badge, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ReactSelect from "react-select";
+import ReactSelect, { components } from "react-select";
 import { Note, Tag } from "../App";
 import styles from "../styles/NoteList.module.css";
 
@@ -19,6 +19,16 @@ type SimpleNote = {
 export function NoteList({ avaliableTags, notes }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
+  const [tags, setTags] = useState<Tag[]>(avaliableTags);
+
+  // Function to delete tag from localStorage
+  const deleteTagFromLocalStorage = (tagToDelete: Tag) => {
+    const updatedTags = tags.filter((tag) => tag.id !== tagToDelete.id);
+    setTags(updatedTags);
+    setSelectedTags(selectedTags.filter((tag) => tag.id !== tagToDelete.id));
+    localStorage.setItem("tags", JSON.stringify(updatedTags));
+  };
+
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
       return (
@@ -31,6 +41,32 @@ export function NoteList({ avaliableTags, notes }: NoteListProps) {
       );
     });
   }, [title, selectedTags, notes]);
+
+  const handleTagDelete = (tagToDelete: Tag) => {
+    deleteTagFromLocalStorage(tagToDelete);
+  };
+
+  const CustomMultiValue = (props: any) => {
+    return (
+      <components.MultiValue {...props}>
+        {props.children}
+        <button
+          type="button"
+          onClick={() =>
+            handleTagDelete({ label: props.data.label, id: props.data.value })
+          }
+          style={{
+            marginLeft: "8px",
+            cursor: "pointer",
+            border: "none",
+            background: "transparent",
+          }}
+        >
+          &times;
+        </button>
+      </components.MultiValue>
+    );
+  };
 
   return (
     <>
@@ -60,7 +96,7 @@ export function NoteList({ avaliableTags, notes }: NoteListProps) {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
             <Form.Group controlId="tags">
               <Form.Label>Tags</Form.Label>
@@ -68,7 +104,7 @@ export function NoteList({ avaliableTags, notes }: NoteListProps) {
                 value={selectedTags.map((tag) => {
                   return { label: tag.label, value: tag.id };
                 })}
-                options={avaliableTags.map((tag) => {
+                options={tags.map((tag) => {
                   return { label: tag.label, value: tag.id };
                 })}
                 onChange={(tags) => {
@@ -79,6 +115,7 @@ export function NoteList({ avaliableTags, notes }: NoteListProps) {
                   );
                 }}
                 isMulti
+                components={{ MultiValue: CustomMultiValue }}
               />
             </Form.Group>
           </Col>
