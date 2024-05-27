@@ -6,13 +6,13 @@ import { v4 as uuidV4 } from "uuid";
 import CreatableReactSelect from "react-select/creatable";
 import { NoteData, Tag } from "../App";
 
-export type NoteFormProps = {
+type NoteFormProps = {
   onSubmit: (data: NoteData) => void;
   onAddTag: (tag: Tag) => void;
-  avaliableTags: Tag[];
+  availableTags: Tag[];
 };
 
-export function NoteForm({ onSubmit, onAddTag, avaliableTags }: NoteFormProps) {
+export function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
   const titleRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -24,7 +24,7 @@ export function NoteForm({ onSubmit, onAddTag, avaliableTags }: NoteFormProps) {
     onSubmit({
       title: titleRef.current!.value,
       textarea: textareaRef.current!.value,
-      tags: [],
+      tags: selectedTags,
     });
 
     navigate("..");
@@ -48,7 +48,7 @@ export function NoteForm({ onSubmit, onAddTag, avaliableTags }: NoteFormProps) {
             value={selectedTags.map((tag) => {
               return { label: tag.label, value: tag.id };
             })}
-            options={avaliableTags.map((tag) => {
+            options={availableTags.map((tag) => {
               return { label: tag.label, value: tag.id };
             })}
             onChange={(tags) => {
