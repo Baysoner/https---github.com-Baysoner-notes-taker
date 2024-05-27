@@ -73,9 +73,27 @@ export default function App() {
     setTags((prev) => [...prev, tag]);
   }
 
-  function onDeleteNote(id: string) {
-    setNotes((prevNotes) => {
+  function updateTag(id: string, label: string) {
+    setTags((prevTags) => {
+      return prevTags.map((tag) => {
+        if (tag.id === id) {
+          return { ...tag, label };
+        } else {
+          return tag;
+        }
+      });
+    });
+  }
+
+  function deleteTag(id: string) {
+    setTags((prevNotes) => {
       return prevNotes.filter((note) => note.id !== id);
+    });
+  }
+
+  function onDeleteNote(id: string) {
+    setNotes((prevTags) => {
+      return prevTags.filter((tag) => tag.id !== id);
     });
   }
 
@@ -84,7 +102,14 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<NoteList notes={notesWithTags} avaliableTags={tags} />}
+          element={
+            <NoteList
+              notes={notesWithTags}
+              updateTag={updateTag}
+              deleteTag={deleteTag}
+              availableTags={tags}
+            />
+          }
         />
         <Route
           path="/new"
