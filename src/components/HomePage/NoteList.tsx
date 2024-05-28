@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import { Badge, Card, Col, Form, Modal, Row, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
-import { Note, Tag } from "../App";
-import styles from "../styles/NoteList.module.css";
+import { Note, Tag } from "./Home";
+import styles from "../../styles/NoteList.module.css";
 
 type NoteListProps = {
   availableTags: Tag[];
