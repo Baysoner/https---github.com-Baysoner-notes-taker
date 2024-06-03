@@ -112,6 +112,7 @@ export default function Home() {
               updateTag={updateTag}
               deleteTag={deleteTag}
               availableTags={tags}
+              currentUser={currentUser}
             />
           }
         />

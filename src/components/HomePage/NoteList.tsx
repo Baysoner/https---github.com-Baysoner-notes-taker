@@ -10,6 +10,7 @@ type NoteListProps = {
   notes: Note[];
   deleteTag: (id: string) => void;
   updateTag: (id: string, label: string) => void;
+  currentUser: any;
 };
 
 type SimpleNote = {
@@ -31,6 +32,7 @@ export function NoteList({
   notes,
   updateTag,
   deleteTag,
+  currentUser,
 }: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [title, setTitle] = useState("");
@@ -52,10 +54,10 @@ export function NoteList({
     <>
       <Row className="align-items-center mb-4">
         <Col>
-          <h1>Notes</h1>
+          <h1>{currentUser}'s Notes</h1>
           <Link to={"/"}>
             <button type="button" className="btn btn-outline-danger">
-              Exit
+              Logout
             </button>
           </Link>
         </Col>
