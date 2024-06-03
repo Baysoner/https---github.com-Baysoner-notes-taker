@@ -19,7 +19,7 @@ const Register = () => {
 
     users.push({ username, password });
     localStorage.setItem("users", JSON.stringify(users));
-    navigate("/login");
+    navigate("/");
   };
 
   return (

@@ -101,7 +101,7 @@ export default function Home() {
     <Container className="my-4">
       <Routes>
         <Route
-          path="/home"
+          path="/"
           element={
             <NoteList
               notes={notesWithTags}
@@ -134,7 +134,6 @@ export default function Home() {
             }
           />
         </Route>
-        <Route path="/home/*" element={<Navigate to="/home" />} />
       </Routes>
     </Container>
   );

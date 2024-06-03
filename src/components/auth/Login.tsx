@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 
 const Login = () => {
@@ -16,7 +16,7 @@ const Login = () => {
 
     if (user) {
       localStorage.setItem("loggedInUser", username);
-      navigate("/");
+      navigate("/home");
     } else {
       alert("Invalid credentials");
     }

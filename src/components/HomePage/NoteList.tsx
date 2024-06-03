@@ -56,7 +56,7 @@ export function NoteList({
         </Col>
         <Col xs="auto">
           <Stack gap={2} direction="horizontal">
-            <Link to="/new">
+            <Link to="/home/new">
               <button type="submit" className="btn btn-dark">
                 Create
               </button>
@@ -126,7 +126,7 @@ function NoteCard({ id, title, tags }: SimpleNote) {
   return (
     <Card
       as={Link}
-      to={`/${id}`}
+      to={`/home/${id}`}
       className={`h-100 text-reset text-decoration-none ${styles.card}`}
     >
       <Card.Body>

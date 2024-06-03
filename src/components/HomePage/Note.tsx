@@ -28,7 +28,7 @@ export function Note({ onDelete }: NoteProps) {
         </Col>
         <Col xs="auto">
           <Stack gap={2} direction="horizontal">
-            <Link to={`/${note.id}/edit`}>
+            <Link to={`/home/${note.id}/edit`}>
               <button type="submit" className="btn btn-dark">
                 Edit
               </button>
@@ -36,14 +36,14 @@ export function Note({ onDelete }: NoteProps) {
             <button
               onClick={() => {
                 onDelete(note.id);
-                navigate("/");
+                navigate("..");
               }}
               type="submit"
               className="btn btn-outline-danger"
             >
               Delete
             </button>
-            <Link to="/">
+            <Link to="..">
               <button type="submit" className="btn btn-outline-secondary">
                 Back
               </button>
