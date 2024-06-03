@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 
 const Register = () => {
@@ -19,7 +19,8 @@ const Register = () => {
 
     users.push({ username, password });
     localStorage.setItem("users", JSON.stringify(users));
-    navigate("/");
+    localStorage.setItem("currentUser", username);
+    navigate("/home");
   };
 
   return (
@@ -44,9 +45,15 @@ const Register = () => {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+
+        <button type="submit" className="btn btn-dark m-2">
           Register
-        </Button>
+        </button>
+        <Link to="/">
+          <button type="button" className="btn btn-outline-dark">
+            Back to Login
+          </button>
+        </Link>
       </Form>
     </Container>
   );

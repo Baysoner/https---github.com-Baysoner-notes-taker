@@ -53,6 +53,11 @@ export function NoteList({
       <Row className="align-items-center mb-4">
         <Col>
           <h1>Notes</h1>
+          <Link to={"/"}>
+            <button type="button" className="btn btn-outline-danger">
+              Exit
+            </button>
+          </Link>
         </Col>
         <Col xs="auto">
           <Stack gap={2} direction="horizontal">

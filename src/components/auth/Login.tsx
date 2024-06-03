@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 
 const Login = () => {
@@ -14,12 +14,13 @@ const Login = () => {
       (user: any) => user.username === username && user.password === password
     );
 
-    if (user) {
-      localStorage.setItem("loggedInUser", username);
-      navigate("/home");
-    } else {
+    if (!user) {
       alert("Invalid credentials");
+      return;
     }
+
+    localStorage.setItem("currentUser", username);
+    navigate("/home");
   };
 
   return (
@@ -44,9 +45,14 @@ const Login = () => {
             required
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <button type="submit" className="btn btn-dark">
           Login
-        </Button>
+        </button>
+        <Link to="/register">
+          <button type="submit" className="btn btn-outline-dark m-2">
+            Register
+          </button>
+        </Link>
       </Form>
     </Container>
   );

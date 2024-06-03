@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { NewNote } from "./NewNote";
 import { useLocalStorage } from "./useLocalStorage";
 import { useMemo } from "react";
@@ -36,8 +36,12 @@ export type Tag = {
 };
 
 export default function Home() {
-  const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
-  const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
+  const currentUser = localStorage.getItem("currentUser");
+  const [notes, setNotes] = useLocalStorage<RawNote[]>(
+    `NOTES_${currentUser}`,
+    []
+  );
+  const [tags, setTags] = useLocalStorage<Tag[]>(`TAGS_${currentUser}`, []);
 
   const notesWithTags = useMemo(() => {
     return notes.map((note) => {
@@ -121,7 +125,7 @@ export default function Home() {
             />
           }
         />
-        <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
+        <Route path=":id" element={<NoteLayout notes={notesWithTags} />}>
           <Route index element={<Note onDelete={onDeleteNote} />} />
           <Route
             path="edit"
