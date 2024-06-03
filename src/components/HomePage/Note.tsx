@@ -51,7 +51,17 @@ export function Note({ onDelete }: NoteProps) {
           </Stack>
         </Col>
       </Row>
-      <ReactMarkdown>{note.textarea}</ReactMarkdown>
+      <div
+        style={{
+          border: "1px solid black ",
+          padding: "10px",
+          whiteSpace: "pre-wrap",
+          wordWrap: "break-word",
+          borderRadius: "15px",
+        }}
+      >
+        <ReactMarkdown>{note.textarea}</ReactMarkdown>
+      </div>
     </>
   );
 }
