@@ -10,7 +10,7 @@ type NoteListProps = {
   notes: Note[];
   deleteTag: (id: string) => void;
   updateTag: (id: string, label: string) => void;
-  currentUser: any;
+  currentUser: string | null;
 };
 
 type SimpleNote = {
