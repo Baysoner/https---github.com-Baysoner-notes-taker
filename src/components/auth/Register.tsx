@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Container } from "react-bootstrap";
+import { User } from "./Login";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -10,7 +11,7 @@ const Register = () => {
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
     const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const userExists = users.find((user: any) => user.username === username);
+    const userExists = users.find((user: User) => user.username === username);
 
     if (userExists) {
       alert("User already exists");

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Container } from "react-bootstrap";
+
+export type User = {
+  username: string;
+  password: string;
+};
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const user = users.find(
-      (user: any) => user.username === username && user.password === password
+      (user: User) => user.username === username && user.password === password
     );
 
     if (!user) {
